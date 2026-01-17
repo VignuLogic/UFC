@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Entry - United Farmers Creamery</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body class="order-container">
+        <div class="card order-card">
+            <a href="/" class="back-btn">&larr; Back to Home</a>
+
+            <div class="header">
+                <h1>📝 Order Entry</h1>
+                <p>Enter sale details below</p>
+            </div>
+
+            <div id="message" class="message"> </div>
+
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="datetime">Date & Time <span class="required">*</span></label>
+                    <input type="datetime-local" id="datetime" name="datetime" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="product">Product Name <span class="required">*</span></label>
+                   <select id="category" required>
+                        <option value="" disabled selected>Select a Category</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Pasteries">Pasteries</option>
+                        <option value="Sandwiches">Sandwiches</option>
+                        <option value="Dairy Products">Dairy Products</option>
+                        <option value="Desserts">Desserts</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for ="quantity">Quantity <span class="required">*</span></label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="price" >Price (₹)  <span class="required">*</span></label>
+                    <input type="number" id="price" name="price" step="0.01" min="0" placeholder="0.00" required>
+                </div>
+
+                <button type="submit">Submit Order</button>
+            </form>
+        </div>
+<script>
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('datetime').value = now.toISOString().slice(0, 16);
+        
+        document.getElementById('orderForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                datetime: document.getElementById('datetime').value,
+                product_name: document.getElementById('product_name').value,
+                category: document.getElementById('category').value,
+                quantity: document.getElementById('quantity').value,
+                price: document.getElementById('price').value
+            };
+            
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            try {
+                const response = await fetch('/submit-order', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                const messageDiv = document.getElementById('message');
+                messageDiv.style.display = 'block';
+                
+                if (result.success) {
+                    messageDiv.className = 'message success';
+                    messageDiv.textContent = '✓ ' + result.message;
+                    document.getElementById('orderForm').reset();
+                    
+                    const now = new Date();
+                    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                    document.getElementById('datetime').value = now.toISOString().slice(0, 16);
+                    
+                    setTimeout(() => messageDiv.style.display = 'none', 3000);
+                } else {
+                    messageDiv.className = 'message error';
+                    messageDiv.textContent = '✗ Error: ' + result.message;
+                }
+            } catch (error) {
+                const messageDiv = document.getElementById('message');
+                messageDiv.style.display = 'block';
+                messageDiv.className = 'message error';
+                messageDiv.textContent = '✗ Error: ' + error.message;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Order';
+            }
+        });
+    </script>
+    </body>
+    </html>
