@@ -1,0 +1,148 @@
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Entry - United Farmers Creamery</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body class="order-container">
+        <div class="card order-card">
+            <a href="/" class="back-btn">&larr; Back to Home</a>
+
+            <div class="header">
+                <h1>📝 Order Entry</h1>
+                <p>Enter sale details below</p>
+            </div>
+
+            <div id="message" class="message"> </div>
+
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="datetime">Date & Time <span class="required">*</span></label>
+                    <input type="datetime-local" id="datetime" name="datetime" required>
+                </div>
+
+<div class="form-group">
+  <label for="category">Product Category *</label>
+  <select id="category" required>
+    <option value="">Select Category</option>
+    <option value="thick_shakes">Thick Shakes (300ml)</option>
+    <option value="nut_shakes">Nut Shakes (300ml)</option>
+    <option value="fruit_shakes">Fruit Thick Shakes (300ml)</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="product">Product Item *</label>
+  <select id="product" required disabled>
+    <option value="">Select Product</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label>Quantity *</label>
+  <input type="number" id="quantity" min="1" value="1">
+</div>
+
+<div class="form-group">
+  <label>Price per Unit (₹)</label>
+  <input type="number" id="price" readonly>
+</div>
+
+<div class="form-group">
+  <label>Total Price (₹)</label>
+  <input type="number" id="total" readonly>
+</div>
+
+
+                <button type="submit" class="submit-btn">Submit Order</button>
+
+            </form>
+        </div>
+
+        
+<script>
+/* 1️⃣ MENU DATA */
+const menuData = {
+  thick_shakes: {
+    "Choco Orange": 99,
+    "Choco Vanilla": 99,
+    "Oreo Cookie": 160,
+    "Nutella Thick Shake": 170
+  },
+  nut_shakes: {
+    "Kaju Chocolate": 150,
+    "Hershey's Almond": 170,
+    "Cadbury Crackle Nut": 170
+  },
+  fruit_shakes: {
+    "Mango Shake": 120,
+    "Strawberry Shake": 130,
+    "Mixed Fruit Shake": 140
+  }
+};
+
+const categorySelect = document.getElementById("category");
+const productSelect = document.getElementById("product");
+const quantityInput = document.getElementById("quantity");
+const priceInput = document.getElementById("price");
+const totalInput = document.getElementById("total");
+
+/* 2️⃣ CATEGORY CHANGE → LOAD PRODUCTS */
+categorySelect.addEventListener("change", () => {
+  const category = categorySelect.value;
+
+  productSelect.innerHTML = '<option value="">Select Product</option>';
+  productSelect.disabled = true;
+
+  priceInput.value = "";
+  totalInput.value = "";
+
+  if (!category) return;
+
+  Object.keys(menuData[category]).forEach(product => {
+    const option = document.createElement("option");
+    option.value = product;
+    option.textContent = product;
+    productSelect.appendChild(option);
+  });
+
+  productSelect.disabled = false;
+});
+
+/* 3️⃣ PRODUCT CHANGE → SET PRICE */
+productSelect.addEventListener("change", () => {
+  const category = categorySelect.value;
+  const product = productSelect.value;
+
+  if (!product) return;
+
+  const price = menuData[category][product];
+  priceInput.value = price;
+  calculateTotal();
+});
+
+/* 4️⃣ QUANTITY CHANGE → UPDATE TOTAL */
+quantityInput.addEventListener("input", calculateTotal);
+
+function calculateTotal() {
+  const qty = Number(quantityInput.value);
+  const price = Number(priceInput.value);
+
+  if (qty > 0 && price > 0) {
+    totalInput.value = qty * price;
+  } else {
+    totalInput.value = "";
+  }
+}
+
+/* 5️⃣ AUTO DATE TIME */
+const now = new Date();
+now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+document.getElementById('datetime').value = now.toISOString().slice(0, 16);
+</script>
+
+
+    </body>
+    </html>

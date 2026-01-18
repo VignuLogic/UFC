@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - United Farmers Creamery</title>
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="menu-page">
+    <div class="menu-container">
+        <div class="menu-header">
+            <a href="/" class="back-btn">← Back to Home</a>
+            <h1>🍦 Our Menu</h1>
+            <p>Explore our delicious offerings</p>
+        </div>
+        
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading menu...</p>
+        </div>
+        
+        <div id="menu-content"></div>
+    </div>
+    
+    <script>
+        async function loadMenu() {
+            try {
+                const response = await fetch('/get-menu-data');
+                const data = await response.json();
+                
+                document.getElementById('loading').classList.add('hidden');
+                
+                const menuContent = document.getElementById('menu-content');
+                
+                data.categories.forEach(category => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'menu-category';
+                    
+                    const title = document.createElement('div');
+                    title.className = 'category-title';
+                    title.textContent = category.name;
+                    categoryDiv.appendChild(title);
+                    
+                    const itemsDiv = document.createElement('div');
+                    itemsDiv.className = 'menu-items';
+                    
+                    category.items.forEach(item => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'menu-item';
+                        itemDiv.innerHTML = `
+                            <span class="item-name">${item.name}</span>
+                            <span class="item-price">₹${item.price}</span>
+                        `;
+                        itemsDiv.appendChild(itemDiv);
+                    });
+                    
+                    categoryDiv.appendChild(itemsDiv);
+                    menuContent.appendChild(categoryDiv);
+                });
+                
+            } catch (error) {
+                document.getElementById('loading').innerHTML = 
+                    `<div class="message error">Error loading menu: ${error.message}</div>`;
+            }
+        }
+        
+        loadMenu();
+    </script>
+</body>
+</html>

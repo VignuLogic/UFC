@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - United Farmers Creamery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body class="analytics-page">
+    <div class="analytics-header">
+        <a href="/" class="back-btn back-btn-white">← Back to Home</a>
+        <h1>📊 Analytics Dashboard</h1>
+        <p>Sales performance overview</p>
+    </div>
+    
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Loading analytics data...</p>    
+    </div>
+    
+    <div id="dashboard" class="dashboard hidden">
+        <div class="chart-container">
+            <div class="chart-title">📈 Daily Revenue</div>
+            <div id="dailyRevenueChart"></div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">🏆 Top Products</div>
+            <div id="topProductsChart"></div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">⏰ Peak Hours</div>
+            <div id="peakHoursChart"></div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">📊 Category Sales</div>
+            <div id="categorySalesChart"></div>
+        </div>
+    </div>
+    
+    <div class="text-center">
+        <button class="refresh-btn" onclick="loadAnalytics()">🔄 Refresh Data</button>
+    </div>
+    
+    <script>
+        async function loadAnalytics() {
+            try {
+                document.getElementById('loading').classList.remove('hidden');
+                document.getElementById('dashboard').classList.add('hidden');
+                
+                const response = await fetch('/get-analytics-data');
+                const data = await response.json();
+                
+                if (data.error) {
+                    document.getElementById('loading').innerHTML = 
+                        `<div class="message error">${data.error}</div>`;
+                    return;
+                }
+                
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                
+                Plotly.newPlot('dailyRevenueChart', [{
+                    x: data.daily_revenue.map(d => d.Date),
+                    y: data.daily_revenue.map(d => d.Total),
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    marker: { color: '#2d5016', size: 10 },
+                    line: { color: '#2d5016', width: 3 },
+                    fill: 'tozeroy',
+                    fillcolor: 'rgba(45, 80, 22, 0.1)'
+                }], {
+                    xaxis: { title: 'Date' },
+                    yaxis: { title: 'Revenue (₹)' }
+                }, {responsive: true});
+                
+                Plotly.newPlot('topProductsChart', [{
+                    x: data.top_products.labels,
+                    y: data.top_products.values,
+                    type: 'bar',
+                    marker: { color: '#2d5016' }
+                }], {
+                    xaxis: { title: 'Product', tickangle: -45 },
+                    yaxis: { title: 'Quantity Sold' }
+                }, {responsive: true});
+                
+                Plotly.newPlot('peakHoursChart', [{
+                    x: data.peak_hours.map(d => `${d.Hour}:00`),
+                    y: data.peak_hours.map(d => d.Total),
+                    type: 'bar',
+                    marker: { color: '#2d5016' }
+                }], {
+                    xaxis: { title: 'Hour' },
+                    yaxis: { title: 'Revenue (₹)' }
+                }, {responsive: true});
+                
+                Plotly.newPlot('categorySalesChart', [{
+                    labels: data.category_sales.map(d => d.Category),
+                    values: data.category_sales.map(d => d.Total),
+                    type: 'pie',
+                    hole: 0.4,
+                    marker: { colors: ['#2d5016', '#3a6b1f', '#478528', '#54a030', '#61ba39'] }
+                }], {}, {responsive: true});
+                
+            } catch (error) {
+                document.getElementById('loading').innerHTML = 
+                    `<div class="message error">Error: ${error.message}</div>`;
+            }
+        }
+        
+        loadAnalytics();
+    </script>
+</body>
+</html>

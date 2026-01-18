@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights - United Farmers Creamery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="insights-page">
+    <div class="insights-wrapper">
+        <div class="insights-header">
+            <a href="/" class="back-btn">← Back to Home</a>
+            <h1>💡 Business Insights</h1>
+            <p>Auto-generated insights from your sales data</p>
+        </div>
+        
+        <div class="insights-container">
+            <div id="loading" class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading insights...</p>
+            </div>
+            
+            <div id="stats" class="stats-summary hidden"></div>
+            <div id="insights"></div>
+            
+            <button class="refresh-btn" onclick="loadInsights()">🔄 Refresh Insights</button>
+        </div>
+    </div>
+    
+    <script>
+        async function loadInsights() {
+            const loadingDiv = document.getElementById('loading');
+            const insightsDiv = document.getElementById('insights');
+            const statsDiv = document.getElementById('stats');
+            
+            loadingDiv.classList.remove('hidden');
+            insightsDiv.innerHTML = '';
+            statsDiv.innerHTML = '';
+            statsDiv.classList.add('hidden');
+            
+            try {
+                const response = await fetch('/get-insights');
+                const data = await response.json();
+                
+                loadingDiv.classList.add('hidden');
+                
+                if (data.insights && data.insights.length > 0) {
+                    const hasData = !data.insights[0].includes('No sales data');
+                    
+                    if (hasData) {
+                        const revenueInsight = data.insights.find(i => i.includes('Total Revenue'));
+                        const ordersInsight = data.insights.find(i => i.includes('Total Orders'));
+                        const avgInsight = data.insights.find(i => i.includes('Average Order'));
+                        
+                        if (revenueInsight || ordersInsight || avgInsight) {
+                            statsDiv.classList.remove('hidden');
+                            
+                            if (revenueInsight) {
+                                const revenue = revenueInsight.match(/₹[\d,]+\.?\d*/);
+                                if (revenue) {
+                                    statsDiv.innerHTML += `
+                                        <div class="stat-box">
+                                            <div class="stat-value">${revenue[0]}</div>
+                                            <div class="stat-label">Total Revenue</div>
+                                        </div>`;
+                                }
+                            }
+                            
+                            if (ordersInsight) {
+                                const orders = ordersInsight.match(/\d+/);
+                                if (orders) {
+                                    statsDiv.innerHTML += `
+                                        <div class="stat-box">
+                                            <div class="stat-value">${orders[0]}</div>
+                                            <div class="stat-label">Total Orders</div>
+                                        </div>`;
+                                }
+                            }
+                            
+                            if (avgInsight) {
+                                const avg = avgInsight.match(/₹[\d,]+\.?\d*/);
+                                if (avg) {
+                                    statsDiv.innerHTML += `
+                                        <div class="stat-box">
+                                            <div class="stat-value">${avg[0]}</div>
+                                            <div class="stat-label">Avg Order</div>
+                                        </div>`;
+                                }
+                            }
+                        }
+                    }
+                    
+                    data.insights.forEach((insight, index) => {
+                        const card = document.createElement('div');
+                        card.className = 'insight-card';
+                        card.textContent = insight;
+                        card.style.animationDelay = `${index * 0.1}s`;
+                        insightsDiv.appendChild(card);
+                    });
+                    
+                    if (!hasData) {
+                        insightsDiv.innerHTML = `
+                            <div class="no-data">
+                                📭 No insights available yet.<br><br>
+                                <a href="/order-entry">Start adding sales data →</a>
+                            </div>`;
+                    }
+                } else {
+                    insightsDiv.innerHTML = `
+                        <div class="no-data">
+                            📭 No insights available yet.<br><br>
+                            <a href="/order-entry">Start adding sales data →</a>
+                        </div>`;
+                }
+            } catch (error) {
+                loadingDiv.classList.add('hidden');
+                insightsDiv.innerHTML = `
+                    <div class="message error">Error: ${error.message}</div>`;
+            }
+        }
+        
+        loadInsights();
+    </script>
+</body>
+</html>

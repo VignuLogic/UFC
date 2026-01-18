@@ -1,0 +1,88 @@
+{
+  "categories": [
+    {
+      "name": "Thick Shakes (300ml)",
+      "items": [
+        {"name": "Choco Orange", "price": 99},
+        {"name": "Choco Vanilla", "price": 99},
+        {"name": "Choco Strawberry", "price": 99},
+        {"name": "Hide & Seek", "price": 99},
+        {"name": "Bournvita Shake", "price": 99},
+        {"name": "Cadbury Gems", "price": 99},
+        {"name": "Munch Mania", "price": 99},
+        {"name": "Vanilla", "price": 99},
+        {"name": "Choco Dips", "price": 99},
+        {"name": "Kaju Chocolate", "price": 150},
+        {"name": "Cadbury Silk", "price": 150},
+        {"name": "Red Velvet", "price": 150},
+        {"name": "Oreo Cookie", "price": 160},
+        {"name": "Choco Caramel Brownie", "price": 160},
+        {"name": "Snicker Shake", "price": 170},
+        {"name": "Choco Pie", "price": 170},
+        {"name": "Brownie Vanilla", "price": 170},
+        {"name": "Cadbury Crackle Nut", "price": 170},
+        {"name": "Silk Caramel", "price": 170},
+        {"name": "Brown Oreo", "price": 170},
+        {"name": "Nutella Thick Shake", "price": 170},
+        {"name": "Hershey's Almond", "price": 170},
+        {"name": "Kit Kat Shake", "price": 170},
+        {"name": "Bounty Shake", "price": 180},
+        {"name": "Brownie Kitkat", "price": 180},
+        {"name": "Brownie Snitters", "price": 180},
+        {"name": "Brownie Rocher", "price": 190},
+        {"name": "Nutties Rocher", "price": 190},
+        {"name": "Premium Ferrero", "price": 200},
+        {"name": "Lotus Shake", "price": 200}
+      ]
+    },
+    {
+      "name": "Dark Chocolate Thick Shake (300ml)",
+      "items": [
+        {"name": "Dark Noir", "price": 170},
+        {"name": "Dark Choco Bournville", "price": 180},
+        {"name": "Belgian Dark Chocolate", "price": 190}
+      ]
+    },
+    {
+      "name": "Nut Shake (300ml)",
+      "items": [
+        {"name": "Kaju Draksh", "price": 99},
+        {"name": "Afghani Nut", "price": 99},
+        {"name": "Butter Scotch", "price": 99},
+        {"name": "Tutti Fruity", "price": 99},
+        {"name": "Rose Kaju", "price": 120},
+        {"name": "Kaju Gulkand", "price": 150},
+        {"name": "Real Kesar Pista", "price": 160},
+        {"name": "Kaju Anjeer", "price": 160},
+        {"name": "Roasted Almond Caramel", "price": 170},
+        {"name": "Rajwadi Delight", "price": 190},
+        {"name": "Pistachio", "price": 200}
+      ]
+    },
+    {
+      "name": "Fruit Thick Shakes (300ml)",
+      "items": [
+        {"name": "Kiwi", "price": 99},
+        {"name": "Banana", "price": 99},
+        {"name": "Guava", "price": 99},
+        {"name": "Pineapple", "price": 99},
+        {"name": "Strawberry", "price": 99},
+        {"name": "Fresh Strawberry", "price": 140},
+        {"name": "Chiku Shake", "price": 150},
+        {"name": "Berry Berry Magic", "price": 160},
+        {"name": "Blue Berry Blast", "price": 170},
+        {"name": "Toffee Shake", "price": 170},
+        {"name": "Sitafal Shake", "price": 180},
+        {"name": "Mix Fruit Bonanza", "price": 190}
+      ]
+    },
+    {
+      "name": "Fruit Shots (2-4 Serve)",
+      "items": [
+        {"name": "Jamun", "price": 60},
+        {"name": "Mango", "price": 60},
+        {"name": "Guava", "price": 60}
+      ]
+    }
+  ]
+}
