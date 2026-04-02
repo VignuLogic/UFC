@@ -1,28 +1,485 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>United Farmers Creamery</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
-    <body>
-        <div class="home-container">
-            <div class="home-card">
-                <div class="logo">🥛</div>
-                <h1>United Farmers Creamery</h1>
-                <p class="tagline">Fresh from Farm to Cup</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a6b4a">
+  <title>United Farmers Creamery — Pure A2 Milk Ice Creams</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-                <div class="btn-group">
-                    <a href="/menu" class="btn btn-secondary">📋 View Menu</a>
-                    <a href="/order-entry" class="btn btn-secondary">📝Enter New Order</a>
-                    <a href="/analytics" class="btn btn-primary">📊Start Analytics</a>
-                    <a href="/insights" class="btn btn-secondary">💡View Insights</a>
-                </div>
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+  <a class="nav-logo" href="#" onclick="showPage('home');return false;">
+    <div class="nav-logo-icon">🥛</div>
+    <div>
+      <div class="nav-logo-text"><h2>United Farmers Creamery</h2></div>
+      <div class="nav-logo-sub">Pure A2 Desi Cow Milk</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <button class="nav-link active" id="nl-home"    onclick="showPage('home')">Menu</button>
+    <button class="nav-link"        id="nl-about"   onclick="showPage('about')">Our Story</button>
+    <button class="nav-link"        id="nl-outlets" onclick="showPage('outlets')">Outlets</button>
+  </div>
+  <div class="nav-right">
+    <button class="nav-cart-btn" onclick="showPage('cart')">
+      🛒 Cart <span class="nav-cart-count" id="nav-cart-count">0</span>
+    </button>
+  </div>
+</nav>
 
-                <div class="footer">
-                    <p>&copy; 2024 United Farmers Creamery. All rights reserved.</p>
-               </div>
-            </div>
+<!-- ══════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge"><div class="hero-dot"></div>India's First A2 Milk Ice Cream</div>
+        <h1 class="hero-title">Scoop, Smile,<br><em>Repeat.</em></h1>
+        <p class="hero-sub">Farm-fresh, small-batch, rich in cream. Made with 100% pure Desi Cow milk collected daily from trusted Gujarat village farms.</p>
+        <div class="hero-btns">
+          <button class="hero-btn-primary" onclick="document.getElementById('menu-section').scrollIntoView({behavior:'smooth'})">Order Now 🍦</button>
+          <button class="hero-btn-secondary" onclick="showPage('about')">Our Story</button>
         </div>
-    </body>
+        <div class="hero-stats">
+          <div><div class="hero-stat-num">35+</div><div class="hero-stat-label">Outlets across India</div></div>
+          <div><div class="hero-stat-num">70+</div><div class="hero-stat-label">Menu items</div></div>
+          <div><div class="hero-stat-num">100%</div><div class="hero-stat-label">Pure A2 Milk</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <span class="hero-card-emoji">🍦</span>
+          <div class="hero-card-title">True to Taste. Rich in Cream.</div>
+          <div class="hero-card-sub">Pure Desi Cow Milk · No Preservatives · Daily Fresh</div>
+          <div class="hero-card-pills">
+            <span class="hero-card-pill">🥛 A2 Milk</span>
+            <span class="hero-card-pill">🌿 Natural</span>
+            <span class="hero-card-pill">👨‍🌾 Farmer Owned</span>
+            <span class="hero-card-pill">♻️ Eco Friendly</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU SECTION -->
+  <div id="menu-section" class="main-layout">
+
+    <!-- SIDEBAR / MOBILE PILLS -->
+    <div class="sidebar">
+      <div class="sidebar-title">Categories</div>
+      <div class="sidebar-cats" id="sidebar-cats"></div>
+    </div>
+
+    <!-- MENU CONTENT -->
+    <div>
+      <div class="search-bar">
+        <span class="search-ico">🔍</span>
+        <input type="text" id="search-input" placeholder="Search shakes, waffles, ice creams..." oninput="handleSearch(this.value)">
+      </div>
+      <div id="menu-content">
+        <div class="empty"><div class="empty-ico">⏳</div><div class="empty-ttl">Loading menu...</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">United Farmers Creamery</div>
+          <div class="footer-desc">City's favourite choice of pure A2 milk based ice creams. Prioritising hygiene, quality, and sustainability since day one.</div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Explore</div>
+          <a onclick="showPage('home')">Menu</a>
+          <a onclick="showPage('about')">Our Story</a>
+          <a onclick="showPage('outlets')">Outlets</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Follow Us</div>
+          <a href="https://instagram.com/unitedfarmerscreamery" target="_blank">Instagram</a>
+          <a href="https://facebook.com/unitedfarmerscreamery" target="_blank">Facebook</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Contact</div>
+          <p>+91 99139 88444</p>
+          <p>inquiry@unitedfarmerscreamery.com</p>
+          <p>Bodakdev, Ahmedabad</p>
+          <p>Mathak, Halvad, Morbi (Factory)</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 United Farmers Creamery · Jhala Brothers Corporation</span>
+        <span>Made with ❤️ in Ahmedabad</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     CART PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-cart">
+  <div class="cart-layout">
+    <div>
+      <div class="cart-left-title">Your Order 🛒</div>
+      <div class="cart-left-sub" id="cart-sub">0 items selected</div>
+      <div id="cart-items-wrap"></div>
+    </div>
+    <div class="cart-sticky" id="cart-summary-wrap"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="about-hero-inner">
+      <h1 class="about-title">Eat Cream,<br>Fulfill Farmer's Dream 🌾</h1>
+      <p class="about-sub">A farmer-owned brand with a mission to uplift rural India through the finest A2 milk ice creams. Founded by Proud Farmer Dharamrajsinh Jhala.</p>
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="about-grid">
+      <div>
+        <div class="journey-title">How We Operate</div>
+        <div class="j-step"><div class="j-left"><div class="j-icon">🐄</div><div class="j-line"></div></div><div class="j-content"><div class="j-num">Step 01</div><div class="j-title">Gaushala Affiliated by UFC</div><div class="j-desc">Pure A2 milk sourced from healthy Desi cows raised in our affiliated Gaushalas across Gujarat villages.</div></div></div>
+        <div class="j-step"><div class="j-left"><div class="j-icon">🚛</div><div class="j-line"></div></div><div class="j-content"><div class="j-num">Step 02</div><div class="j-title">Collection Centre</div><div class="j-desc">Milk collected daily from trusted village farms and transported fresh to our processing facility.</div></div></div>
+        <div class="j-step"><div class="j-left"><div class="j-icon">🏭</div><div class="j-line"></div></div><div class="j-content"><div class="j-num">Step 03</div><div class="j-title">UFC Factory</div><div class="j-desc">Our factory in Mathak, Halvad, Morbi churns A2 milk into premium ice creams in small batches daily.</div></div></div>
+        <div class="j-step"><div class="j-left"><div class="j-icon">🏪</div><div class="j-line"></div></div><div class="j-content"><div class="j-num">Step 04</div><div class="j-title">UFC Outlets</div><div class="j-desc">Fresh ice cream reaches 35+ outlets across Ahmedabad, Baroda, Mehsana, Indore and growing.</div></div></div>
+        <div class="j-step"><div class="j-left"><div class="j-icon">😊</div></div><div class="j-content"><div class="j-num">Step 05</div><div class="j-title">Happy Consumers</div><div class="j-desc">You enjoy pure, natural ice cream — and every scoop supports a Gujarat farmer's livelihood.</div></div></div>
+      </div>
+      <div>
+        <div class="values-title">Why Choose Us</div>
+        <div class="vals-grid">
+          <div class="val-card"><div class="val-ico">🥛</div><div class="val-title">Pure A2 Milk</div><div class="val-desc">100% Desi Cow milk — richer, creamier and easier to digest.</div></div>
+          <div class="val-card"><div class="val-ico">🌿</div><div class="val-title">No Preservatives</div><div class="val-desc">Natural ingredients only. Zero artificial additives. Ever.</div></div>
+          <div class="val-card"><div class="val-ico">🤝</div><div class="val-title">Farmer First</div><div class="val-desc">Every scoop directly supports rural Gujarat farmers.</div></div>
+          <div class="val-card"><div class="val-ico">♻️</div><div class="val-title">Eco Friendly</div><div class="val-desc">Climate-conscious, energy-efficient production.</div></div>
+        </div>
+        <div class="franchise-cta">
+          <h3>Franchise Inquiries 🤝</h3>
+          <p>Interested in opening a UFC outlet in your city? We'd love to hear from you.</p>
+          <a href="tel:+919913988444">📞 +91 99139 88444</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <span>© 2025 United Farmers Creamery</span>
+        <span>+91 99139 88444 · Ahmedabad, Gujarat</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     OUTLETS PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-outlets">
+  <div class="about-hero">
+    <div class="about-hero-inner">
+      <h1 class="about-title">Find Us Near You 📍</h1>
+      <p class="about-sub">35+ outlets across India — from Ahmedabad to Indore. Pure A2 milk ice cream near you.</p>
+    </div>
+  </div>
+  <div class="outlets-content">
+    <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;margin-bottom:20px;">Ahmedabad</div>
+    <div class="outlets-grid" style="margin-bottom:36px;">
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Prahlad Nagar</div><div class="outlet-addr">Shop 09, Rivera Arcade, Ring Road</div><div class="outlet-state">Ahmedabad</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Chandkheda</div><div class="outlet-addr">Shop 43, Urban Chowk, S.P. Ring Road</div><div class="outlet-state">Ahmedabad</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Gota</div><div class="outlet-addr">Shop B/11, Shukan Residency, Opp. Vandemataram</div><div class="outlet-state">Ahmedabad</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Navrangpura</div><div class="outlet-addr">Near Panjrapol Cross Road</div><div class="outlet-state">Ahmedabad</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Shahibaug</div><div class="outlet-addr">Shop No. 1 & 2, Riverfront Road</div><div class="outlet-state">Ahmedabad</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Bodakdev HQ</div><div class="outlet-addr">502 Devashish Business Park, Near Popular Domain</div><div class="outlet-state">Ahmedabad</div></div></div>
+    </div>
+    <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;margin-bottom:20px;">Across India</div>
+    <div class="outlets-grid">
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Gandhinagar</div><div class="outlet-addr">City Centre</div><div class="outlet-state">Gujarat</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Baroda</div><div class="outlet-addr">Multiple locations</div><div class="outlet-state">Gujarat</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Mehsana</div><div class="outlet-addr">City Centre</div><div class="outlet-state">Gujarat</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Valsad</div><div class="outlet-addr">City Centre</div><div class="outlet-state">Gujarat</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Patan</div><div class="outlet-addr">City Centre</div><div class="outlet-state">Gujarat</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Palanpur</div><div class="outlet-addr">City Centre</div><div class="outlet-state">Gujarat</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Morbi</div><div class="outlet-addr">Near Factory</div><div class="outlet-state">Gujarat</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Dhrangadhra</div><div class="outlet-addr">City Centre</div><div class="outlet-state">Gujarat</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Indore</div><div class="outlet-addr">Multiple locations</div><div class="outlet-state">Madhya Pradesh</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Vishakapatnam</div><div class="outlet-addr">City Centre</div><div class="outlet-state">Andhra Pradesh</div></div></div>
+      <div class="outlet-card"><div class="outlet-ico">📍</div><div><div class="outlet-name">Anand</div><div class="outlet-addr">City Centre</div><div class="outlet-state">Gujarat</div></div></div>
+    </div>
+    <div style="text-align:center;padding:28px 0;font-size:14px;color:var(--text-light);">+ More outlets opening soon across India 🇮🇳</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SUCCESS PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-success">
+  <div class="success-wrap">
+    <div class="success-card">
+      <div class="success-ico">✅</div>
+      <div class="success-title">Order Placed!</div>
+      <div class="success-sub">Your order is confirmed.<br>The outlet will prepare it fresh for you.</div>
+      <div class="success-id" id="success-id">#UFC000000</div>
+      <button class="success-cta" onclick="showPage('home')">Order More 🍦</button>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE CART BAR -->
+<div class="mobile-cart-bar" id="mobile-cart-bar" onclick="showPage('cart')">
+  <div class="mobile-cart-inner">
+    <div class="mcb-left">
+      <div class="mcb-count" id="mcb-count">0</div>
+      <div><div class="mcb-lbl">View Cart</div><div class="mcb-sub">Tap to checkout</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div class="mcb-total" id="mcb-total">₹0</div>
+      <div class="mcb-arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const OUTLETS=[
+  {name:'Prahlad Nagar',addr:'Rivera Arcade, Ring Road'},
+  {name:'Chandkheda',addr:'Urban Chowk, S.P. Ring Road'},
+  {name:'Navrangpura',addr:'Near Panjrapol Cross Road'},
+  {name:'Shahibaug',addr:'Riverfront Road'},
+  {name:'Gota',addr:'Shukan Residency, Vandemataram'},
+];
+let menuData=null, cart={}, activeCategory=0, selectedOutlet=0;
+
+// ── PAGE ROUTING ──
+function showPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+n).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const nl=document.getElementById('nl-'+n);
+  if(nl) nl.classList.add('active');
+  if(n==='cart') renderCart();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── LOAD MENU ──
+fetch('/get-menu-data').then(r=>r.json()).then(data=>{
+  menuData=data;
+  buildSidebar();
+  renderAll();
+}).catch(()=>{
+  document.getElementById('menu-content').innerHTML='<div class="empty"><div class="empty-ico">😕</div><div class="empty-ttl">Menu unavailable</div><div class="empty-sub">Please refresh the page</div></div>';
+});
+
+function buildSidebar(){
+  const w=document.getElementById('sidebar-cats');
+  menuData.categories.forEach((cat,i)=>{
+    const btn=document.createElement('button');
+    btn.className='sidebar-cat'+(i===0?' active':'');
+    btn.innerHTML=`<span class="sidebar-cat-ico">${cat.emoji}</span><span class="sidebar-cat-name">${cat.name.replace(/\s*\(.*\)/,'')}</span><span class="sidebar-cat-count">${cat.items.length}</span>`;
+    btn.onclick=()=>{
+      document.querySelectorAll('.sidebar-cat').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active'); activeCategory=i;
+      document.getElementById('search-input').value='';
+      renderAll();
+      // scroll to section
+      const sec=document.getElementById('cat-sec-'+i);
+      if(sec) sec.scrollIntoView({behavior:'smooth',block:'start'});
+    };
+    w.appendChild(btn);
+  });
+}
+
+function renderAll(){
+  const w=document.getElementById('menu-content');
+  w.innerHTML='';
+  menuData.categories.forEach((cat,i)=>{
+    const sec=document.createElement('div');
+    sec.className='cat-section'; sec.id='cat-sec-'+i;
+    sec.innerHTML=`<div class="cat-section-head"><div><div class="cat-section-title">${cat.emoji} ${cat.name}</div><div class="cat-section-tagline">${cat.tagline}</div></div><div class="cat-section-count">${cat.items.length} items</div></div><div class="menu-grid" id="grid-${i}"></div>`;
+    w.appendChild(sec);
+    const grid=document.getElementById('grid-'+i);
+    cat.items.forEach(item=>addCard(grid,item,cat));
+  });
+}
+
+function esc(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
+
+function addCard(container,item,cat){
+  const key=item.name+'|'+cat.name;
+  const qty=cart[key]?cart[key].qty:0;
+  const d=document.createElement('div');
+  d.className='menu-card'; d.id='mc-'+btoa(encodeURIComponent(key));
+  d.innerHTML=`
+    <div class="menu-card-img">${cat.emoji}</div>
+    <div class="menu-card-body">
+      <div class="menu-card-name">${item.name}</div>
+      <div class="menu-card-cat">${cat.name}</div>
+      <div class="menu-card-foot">
+        <div class="menu-card-price">₹${item.price}</div>
+        ${qtyHtml(key,item,cat,qty)}
+      </div>
+    </div>
+    <div class="veg-dot"></div>`;
+  container.appendChild(d);
+}
+
+function qtyHtml(key,item,cat,qty){
+  if(qty===0) return `<button class="add-btn" onclick="add('${esc(key)}','${esc(item.name)}',${item.price},'${esc(cat.name)}','${esc(cat.emoji)}')">+</button>`;
+  return `<div class="qty-ctl"><button class="qty-btn" onclick="chg('${esc(key)}',-1)">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="chg('${esc(key)}',1)">+</button></div>`;
+}
+
+function add(key,name,price,cat,emoji){
+  if(!cart[key]) cart[key]={name,price,cat,emoji,qty:0};
+  cart[key].qty++; updateUI(); refreshCard(key);
+}
+function chg(key,d){
+  if(!cart[key]) return;
+  cart[key].qty+=d;
+  if(cart[key].qty<=0) delete cart[key];
+  updateUI(); refreshCard(key);
+}
+function refreshCard(key){
+  const el=document.getElementById('mc-'+btoa(encodeURIComponent(key)));
+  if(!el) return;
+  const foot=el.querySelector('.menu-card-foot');
+  const qty=cart[key]?cart[key].qty:0;
+  const priceEl=foot.querySelector('.menu-card-price').outerHTML;
+  const parts=key.split('|'); const name=parts[0]; const catName=parts[1];
+  const catObj=menuData&&menuData.categories.find(c=>c.name===catName);
+  const itemObj=catObj&&catObj.items.find(i=>i.name===name);
+  if(!itemObj||!catObj) return;
+  foot.innerHTML=priceEl+qtyHtml(key,itemObj,catObj,qty);
+}
+
+function updateUI(){
+  const total=Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0);
+  const count=Object.values(cart).reduce((s,i)=>s+i.qty,0);
+  // navbar count
+  const nc=document.getElementById('nav-cart-count');
+  nc.textContent=count; nc.className='nav-cart-count'+(count>0?' show':'');
+  // mobile bar
+  document.getElementById('mcb-count').textContent=count;
+  document.getElementById('mcb-total').textContent='₹'+total;
+  const bar=document.getElementById('mobile-cart-bar');
+  count>0?bar.classList.add('show'):bar.classList.remove('show');
+}
+
+// ── CART RENDER ──
+function renderCart(){
+  const items=Object.entries(cart);
+  const count=items.reduce((s,[,i])=>s+i.qty,0);
+  document.getElementById('cart-sub').textContent=count+' item'+(count!==1?'s':'')+' selected';
+
+  const iw=document.getElementById('cart-items-wrap');
+  const sw=document.getElementById('cart-summary-wrap');
+
+  if(!items.length){
+    iw.innerHTML='<div class="empty"><div class="empty-ico">🛒</div><div class="empty-ttl">Your cart is empty</div><div class="empty-sub">Add some delicious items from our menu</div><button class="empty-btn" onclick="showPage(\'home\')">Browse Menu</button></div>';
+    sw.innerHTML=''; return;
+  }
+
+  const sub=items.reduce((s,[,i])=>s+i.price*i.qty,0);
+  const gst=Math.round(sub*0.05);
+  const total=sub+gst;
+
+  iw.innerHTML=`<div class="cart-items">
+    ${items.map(([key,item])=>`
+      <div class="cart-item">
+        <div class="cart-item-ico">${item.emoji}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-cat">${item.cat}</div>
+          <div class="cart-item-price">₹${item.price} × ${item.qty} = ₹${item.price*item.qty}</div>
+        </div>
+        <div class="qty-ctl">
+          <button class="qty-btn" onclick="chg('${esc(key)}',-1);renderCart()">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="chg('${esc(key)}',1);renderCart()">+</button>
+        </div>
+      </div>`).join('')}
+  </div>`;
+
+  sw.innerHTML=`
+    <div class="cart-summary-card">
+      <div class="cart-summary-title">Bill Details</div>
+      <div class="bill-row"><span>Item total</span><span>₹${sub}</span></div>
+      <div class="bill-row"><span>GST (5%)</span><span>₹${gst}</span></div>
+      <div class="bill-row"><span>Delivery</span><span style="color:var(--green);font-weight:700">FREE</span></div>
+      <div class="bill-row total"><span>To Pay</span><span>₹${total}</span></div>
+    </div>
+    <div class="outlet-card-form">
+      <label class="form-label">📍 Select Pickup Outlet</label>
+      <div class="outlet-opts">
+        ${OUTLETS.map((o,i)=>`
+          <div class="outlet-opt ${i===selectedOutlet?'sel':''}" onclick="selOut(${i})">
+            <div class="opt-radio"></div>
+            <div><div class="opt-name">${o.name}</div><div class="opt-addr">${o.addr}</div></div>
+          </div>`).join('')}
+      </div>
+      <label class="form-label">📱 Your Phone Number</label>
+      <div class="phone-field">
+        <span>🇮🇳</span>
+        <span class="phone-pre">+91</span>
+        <input type="tel" id="phone-inp" maxlength="10" placeholder="10-digit mobile number" value="1234567890">
+      </div>
+      <button class="checkout-btn" onclick="placeOrder(${total})">🎉 Place Order · ₹${total}</button>
+    </div>`;
+}
+
+function selOut(i){ selectedOutlet=i; renderCart(); }
+
+function placeOrder(total){
+  const p=document.getElementById('phone-inp')?.value;
+  if(!p||p.length<10){alert('Please enter a valid 10-digit phone number');return;}
+  const id='#UFC'+Date.now().toString().slice(-6);
+  document.getElementById('success-id').textContent=id;
+  cart={}; updateUI(); showPage('success');
+}
+
+// ── SEARCH ──
+function handleSearch(val){
+  if(!menuData) return;
+  const q=val.toLowerCase().trim();
+  if(!q){renderAll();return;}
+  const results=[];
+  menuData.categories.forEach(cat=>cat.items.forEach(item=>{
+    if(item.name.toLowerCase().includes(q)) results.push({item,cat});
+  }));
+  const w=document.getElementById('menu-content');
+  w.innerHTML=`<div class="cat-section"><div class="cat-section-head"><div><div class="cat-section-title">🔍 Results for "${val}"</div><div class="cat-section-tagline">${results.length} items found</div></div></div><div class="menu-grid" id="sgrid"></div></div>`;
+  const g=document.getElementById('sgrid');
+  if(!results.length){
+    g.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-ico">😕</div><div class="empty-ttl">Nothing found</div><div class="empty-sub">Try "waffle" or "chocolate" or "lotus"</div></div>';
+  } else {
+    results.forEach(({item,cat})=>addCard(g,item,cat));
+  }
+}
+
+// ── SCROLL SPY — update sidebar active on scroll ──
+window.addEventListener('scroll',()=>{
+  if(!menuData) return;
+  const cats=menuData.categories;
+  for(let i=cats.length-1;i>=0;i--){
+    const el=document.getElementById('cat-sec-'+i);
+    if(el&&el.getBoundingClientRect().top<120){
+      document.querySelectorAll('.sidebar-cat').forEach(b=>b.classList.remove('active'));
+      const btns=document.querySelectorAll('.sidebar-cat');
+      if(btns[i]) btns[i].classList.add('active');
+      activeCategory=i; break;
+    }
+  }
+},{ passive:true });
+</script>
+</body>
 </html>

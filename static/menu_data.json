@@ -1,87 +1,126 @@
 {
   "categories": [
     {
-      "name": "Thick Shakes (300ml)",
+      "name": "Ice Creams",
+      "emoji": "🍦",
+      "tagline": "Rich, creamy, farm-fresh scoops!",
       "items": [
-        {"name": "Choco Orange", "price": 99},
-        {"name": "Choco Vanilla", "price": 99},
-        {"name": "Choco Strawberry", "price": 99},
-        {"name": "Hide & Seek", "price": 99},
-        {"name": "Bournvita Shake", "price": 99},
-        {"name": "Cadbury Gems", "price": 99},
-        {"name": "Munch Mania", "price": 99},
-        {"name": "Vanilla", "price": 99},
-        {"name": "Choco Dips", "price": 99},
-        {"name": "Kaju Chocolate", "price": 150},
-        {"name": "Cadbury Silk", "price": 150},
-        {"name": "Red Velvet", "price": 150},
-        {"name": "Oreo Cookie", "price": 160},
-        {"name": "Choco Caramel Brownie", "price": 160},
-        {"name": "Snicker Shake", "price": 170},
-        {"name": "Choco Pie", "price": 170},
-        {"name": "Brownie Vanilla", "price": 170},
-        {"name": "Cadbury Crackle Nut", "price": 170},
-        {"name": "Silk Caramel", "price": 170},
-        {"name": "Brown Oreo", "price": 170},
-        {"name": "Nutella Thick Shake", "price": 170},
-        {"name": "Hershey's Almond", "price": 170},
-        {"name": "Kit Kat Shake", "price": 170},
-        {"name": "Bounty Shake", "price": 180},
-        {"name": "Brownie Kitkat", "price": 180},
-        {"name": "Brownie Snitters", "price": 180},
-        {"name": "Brownie Rocher", "price": 190},
-        {"name": "Nutties Rocher", "price": 190},
-        {"name": "Premium Ferrero", "price": 200},
-        {"name": "Lotus Shake", "price": 200}
+        {"name": "Vanilla", "price": 59, "family_pack": 250, "bulk_4ltr": 1250},
+        {"name": "American Nut", "price": 59, "family_pack": 250, "bulk_4ltr": 1250},
+        {"name": "Chocolate Chips", "price": 59, "family_pack": 250, "bulk_4ltr": 1250},
+        {"name": "Cookies & Cream", "price": 69, "family_pack": 350, "bulk_4ltr": 1500},
+        {"name": "Brownie", "price": 69, "family_pack": 350, "bulk_4ltr": 1500},
+        {"name": "Red Velvet Cranberry", "price": 69, "family_pack": 350, "bulk_4ltr": 1500},
+        {"name": "Rose Petal", "price": 69, "family_pack": 350, "bulk_4ltr": 1500},
+        {"name": "Guava", "price": 69, "family_pack": 350, "bulk_4ltr": 1500},
+        {"name": "Strawberry (S)", "price": 79, "family_pack": 400, "bulk_4ltr": 1700},
+        {"name": "Rajwadi (S)", "price": 79, "family_pack": 400, "bulk_4ltr": 1700},
+        {"name": "Tender Coconut", "price": 89, "family_pack": 400, "bulk_4ltr": 1700},
+        {"name": "Roasted Almond", "price": 89, "family_pack": 400, "bulk_4ltr": 1700},
+        {"name": "Jamun", "price": 89, "family_pack": 400, "bulk_4ltr": 1950},
+        {"name": "Tiramisu", "price": 99, "family_pack": 450, "bulk_4ltr": 1950},
+        {"name": "Lotus Biscoff", "price": 99, "family_pack": 450, "bulk_4ltr": 2150},
+        {"name": "Mississippi Mud", "price": 99, "family_pack": 450, "bulk_4ltr": 2150}
       ]
     },
     {
-      "name": "Dark Chocolate Thick Shake (300ml)",
+      "name": "Thick Shakes",
+      "emoji": "🥤",
+      "tagline": "Creamy, velvety and irresistibly satisfying!",
       "items": [
-        {"name": "Dark Noir", "price": 170},
-        {"name": "Dark Choco Bournville", "price": 180},
-        {"name": "Belgian Dark Chocolate", "price": 190}
+        {"name": "Original Vanilla", "price": 120},
+        {"name": "Choco Dips", "price": 150},
+        {"name": "Red Velvet", "price": 180},
+        {"name": "Brownie Vanilla", "price": 180},
+        {"name": "Kit Kat", "price": 190},
+        {"name": "Nutella", "price": 190},
+        {"name": "Oreo Cookie", "price": 190},
+        {"name": "Belgian Dark Chocolate", "price": 190},
+        {"name": "Brownie Kitkat", "price": 200},
+        {"name": "Brownie Rocher", "price": 200},
+        {"name": "Lotus Biscoff", "price": 200},
+        {"name": "Premium Ferrero", "price": 250}
       ]
     },
     {
-      "name": "Nut Shake (300ml)",
+      "name": "Milk Shakes",
+      "emoji": "🍶",
+      "tagline": "Light, wholesome, creamy milk shakes!",
       "items": [
-        {"name": "Kaju Draksh", "price": 99},
-        {"name": "Afghani Nut", "price": 99},
-        {"name": "Butter Scotch", "price": 99},
-        {"name": "Tutti Fruity", "price": 99},
-        {"name": "Rose Kaju", "price": 120},
-        {"name": "Kaju Gulkand", "price": 150},
-        {"name": "Real Kesar Pista", "price": 160},
+        {"name": "Vanilla Swirl", "price": 130},
+        {"name": "Chilling Chocolate", "price": 140},
+        {"name": "Oreo Kick", "price": 150},
+        {"name": "Chocolate Brownie", "price": 160},
+        {"name": "Strawberry", "price": 160},
         {"name": "Kaju Anjeer", "price": 160},
-        {"name": "Roasted Almond Caramel", "price": 170},
-        {"name": "Rajwadi Delight", "price": 190},
-        {"name": "Pistachio", "price": 200}
+        {"name": "Chikoo", "price": 160},
+        {"name": "Fresh Mango (S)", "price": 160},
+        {"name": "Sitafal (S)", "price": 160},
+        {"name": "Kaju Badam", "price": 160},
+        {"name": "Red Velvet", "price": 170},
+        {"name": "Coconut", "price": 180},
+        {"name": "Blueberry", "price": 180},
+        {"name": "Roohafza", "price": 180},
+        {"name": "Rajwadi Raj", "price": 190},
+        {"name": "Pistachio Kunafa", "price": 190},
+        {"name": "Ferrero Rocher", "price": 190},
+        {"name": "Pure Pistachio", "price": 190},
+        {"name": "Lotus Biscoff", "price": 190},
+        {"name": "Belgian Dark Chocolate", "price": 210},
+        {"name": "Mix Berries", "price": 210}
       ]
     },
     {
-      "name": "Fruit Thick Shakes (300ml)",
+      "name": "Nut Shakes",
+      "emoji": "🌰",
+      "tagline": "Nutty, creamy and full of goodness!",
       "items": [
-        {"name": "Kiwi", "price": 99},
-        {"name": "Banana", "price": 99},
-        {"name": "Guava", "price": 99},
-        {"name": "Pineapple", "price": 99},
-        {"name": "Strawberry", "price": 99},
-        {"name": "Fresh Strawberry", "price": 140},
-        {"name": "Chiku Shake", "price": 150},
-        {"name": "Berry Berry Magic", "price": 160},
-        {"name": "Blue Berry Blast", "price": 170},
-        {"name": "Toffee Shake", "price": 170},
-        {"name": "Sitafal Shake", "price": 180},
-        {"name": "Mix Fruit Bonanza", "price": 190}
+        {"name": "Kaju Gulkand", "price": 180},
+        {"name": "Kaju Anjeer", "price": 210},
+        {"name": "Pure Pistachio", "price": 230},
+        {"name": "Rajbhog", "price": 240},
+        {"name": "Roasted Almond", "price": 250}
       ]
     },
     {
-      "name": "Fruit Shots (2-4 Serve)",
+      "name": "Fruit Shakes",
+      "emoji": "🍓",
+      "tagline": "Fresh fruits meet creamy goodness!",
       "items": [
-        {"name": "Jamun", "price": 60},
-        {"name": "Mango", "price": 60},
-        {"name": "Guava", "price": 60}
+        {"name": "Strawberry", "price": 180},
+        {"name": "Berry Berry", "price": 190},
+        {"name": "Blueberry", "price": 200},
+        {"name": "Sitafal (S)", "price": 200},
+        {"name": "Real Mango (S)", "price": 200}
+      ]
+    },
+    {
+      "name": "Waffles",
+      "emoji": "🧇",
+      "tagline": "Golden, crisp and freshly baked treats!",
+      "items": [
+        {"name": "Dark & White Fantasy", "price": 150},
+        {"name": "Blueberry", "price": 160},
+        {"name": "Brownie", "price": 160},
+        {"name": "Kit Kat", "price": 160},
+        {"name": "Cookies & Cream", "price": 160},
+        {"name": "Triple Chocolate", "price": 170},
+        {"name": "Strawberry", "price": 170},
+        {"name": "Lotus Biscoff", "price": 170},
+        {"name": "Ferrero Rocher", "price": 180},
+        {"name": "Nutella", "price": 180},
+        {"name": "Pistachio Kunafa", "price": 200}
+      ]
+    },
+    {
+      "name": "Cold Coffee",
+      "emoji": "☕",
+      "tagline": "Chilled, chocolatey, refreshing & creamy!",
+      "items": [
+        {"name": "Swiss Coco", "price": 130},
+        {"name": "Cold Coffee", "price": 150},
+        {"name": "Caramel Cold Coffee", "price": 160},
+        {"name": "Hazelnut Cold Coffee", "price": 180}
       ]
     }
   ]

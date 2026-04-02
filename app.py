@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # File paths
 CSV_FILE = 'sales_data.csv'
-MENU_FILE = 'static/menu_data.json'
+MENU_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'menu_data.json')
 
 # Initialize CSV
 def init_csv():
@@ -29,7 +29,7 @@ def menu():
 @app.route('/get-menu-data')
 def get_menu_data():
     try:
-        with open(MENU_FILE, 'r') as f:
+        with open(MENU_FILE, 'r', encoding='utf-8') as f:
             menu_data = json.load(f)
         return jsonify(menu_data)
     except FileNotFoundError:

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Role</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="card">
+    <h1>United Farmers Creamery</h1>
+    <p>Select your role</p>
+
+    <form method="POST" action="{{ url_for('set_role') }}">
+        <button type="submit" name="role" value="customer" class="btn">
+            👤 Customer
+        </button>
+
+        <button type="submit" name="role" value="owner" class="btn dark">
+            🧑‍💼 Owner
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

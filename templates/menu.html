@@ -1,70 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - United Farmers Creamery</title>
- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — United Farmers Creamery</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="menu-page">
-    <div class="menu-container">
-        <div class="menu-header">
-            <a href="/" class="back-btn">← Back to Home</a>
-            <h1>🍦 Our Menu</h1>
-            <p>Explore our delicious offerings</p>
-        </div>
-        
-        <div id="loading" class="loading">
-            <div class="loading-spinner"></div>
-            <p>Loading menu...</p>
-        </div>
-        
-        <div id="menu-content"></div>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="nav-brand">
+    <div class="nav-brand-icon">🥛</div>
+    <div class="nav-brand-name">
+      United Farmers Creamery
+      <span>Pure A2 Milk · Ahmedabad</span>
     </div>
-    
-    <script>
-        async function loadMenu() {
-            try {
-                const response = await fetch('/get-menu-data');
-                const data = await response.json();
-                
-                document.getElementById('loading').classList.add('hidden');
-                
-                const menuContent = document.getElementById('menu-content');
-                
-                data.categories.forEach(category => {
-                    const categoryDiv = document.createElement('div');
-                    categoryDiv.className = 'menu-category';
-                    
-                    const title = document.createElement('div');
-                    title.className = 'category-title';
-                    title.textContent = category.name;
-                    categoryDiv.appendChild(title);
-                    
-                    const itemsDiv = document.createElement('div');
-                    itemsDiv.className = 'menu-items';
-                    
-                    category.items.forEach(item => {
-                        const itemDiv = document.createElement('div');
-                        itemDiv.className = 'menu-item';
-                        itemDiv.innerHTML = `
-                            <span class="item-name">${item.name}</span>
-                            <span class="item-price">₹${item.price}</span>
-                        `;
-                        itemsDiv.appendChild(itemDiv);
-                    });
-                    
-                    categoryDiv.appendChild(itemsDiv);
-                    menuContent.appendChild(categoryDiv);
-                });
-                
-            } catch (error) {
-                document.getElementById('loading').innerHTML = 
-                    `<div class="message error">Error loading menu: ${error.message}</div>`;
-            }
-        }
-        
-        loadMenu();
-    </script>
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/menu" class="active">Menu</a>
+    <a href="/#why-ufc">Our Story</a>
+    <a href="/#outlets">Outlets</a>
+  </div>
+  <a href="/" class="nav-cta">Back to Home</a>
+</nav>
+
+<div class="section" style="min-height:100vh;">
+  <div class="section-header">
+    <div class="section-label">Our Menu</div>
+    <h1 class="section-title">Every Sip, Pure Delight</h1>
+    <p class="section-sub">All made with 100% pure A2 milk from Gujarat farms</p>
+  </div>
+
+  <div id="menu-tabs" class="menu-tabs"></div>
+  <div id="menu-content"></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-bottom" style="border-top:none; padding-top:0;">
+    <span>© 2025 United Farmers Creamery</span>
+    <span>+91 99139 88444 · Ahmedabad, Gujarat</span>
+  </div>
+</footer>
+
+<script>
+const EMOJI_MAP = {
+  "Thick Shakes": "🥤",
+  "Dark Chocolate Thick Shake": "🍫",
+  "Nut Shake": "🌰",
+  "Fruit Thick Shakes": "🍓",
+  "Fruit Shots": "🥭"
+};
+const BADGE_MAP = {
+  "Lotus Shake": {text:"Premium", cls:"badge-new"},
+  "Premium Ferrero": {text:"Premium", cls:"badge-new"},
+  "Rajwadi Delight": {text:"Popular", cls:"badge-popular"},
+  "Pistachio": {text:"Premium", cls:"badge-new"},
+  "Real Kesar Pista": {text:"Special", cls:"badge-special"},
+  "Sitafal Shake": {text:"Seasonal", cls:"badge-special"},
+  "Belgian Dark Chocolate": {text:"Premium", cls:"badge-new"},
+  "Berry Berry Magic": {text:"Popular", cls:"badge-popular"},
+  "Blue Berry Blast": {text:"Popular", cls:"badge-popular"},
+  "Fresh Strawberry": {text:"Fresh", cls:"badge-special"},
+};
+
+fetch('/get-menu-data')
+  .then(r => r.json())
+  .then(data => {
+    const tabsEl = document.getElementById('menu-tabs');
+    const contentEl = document.getElementById('menu-content');
+
+    data.categories.forEach((cat, i) => {
+      const shortName = cat.name.replace(/\s*\(.*?\)/g, '').trim();
+      const emoji = Object.keys(EMOJI_MAP).find(k => shortName.includes(k));
+
+      const tab = document.createElement('button');
+      tab.className = 'menu-tab' + (i === 0 ? ' active' : '');
+      tab.textContent = (emoji ? EMOJI_MAP[emoji] + ' ' : '') + shortName;
+      tab.onclick = () => {
+        document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + i).classList.add('active');
+      };
+      tabsEl.appendChild(tab);
+
+      const panel = document.createElement('div');
+      panel.className = 'menu-panel' + (i === 0 ? ' active' : '');
+      panel.id = 'panel-' + i;
+
+      const sizeNote = cat.name.match(/\(.*?\)/)?.[0] || '';
+      if (sizeNote) {
+        panel.innerHTML = `<p style="text-align:center; font-size:13px; color:var(--text-light); margin-bottom:24px;">Serving size: ${sizeNote}</p>`;
+      }
+
+      const grid = document.createElement('div');
+      grid.className = 'menu-grid';
+
+      cat.items.forEach(item => {
+        const badge = BADGE_MAP[item.name];
+        grid.innerHTML += `
+          <div class="menu-item">
+            ${badge ? `<span class="menu-item-badge ${badge.cls}">${badge.text}</span>` : ''}
+            <span class="menu-item-emoji">🥤</span>
+            <div class="menu-item-name">${item.name}</div>
+            <div class="menu-item-price">₹${item.price}</div>
+          </div>`;
+      });
+
+      panel.appendChild(grid);
+      contentEl.appendChild(panel);
+    });
+  })
+  .catch(() => {
+    document.getElementById('menu-content').innerHTML =
+      '<p style="text-align:center;color:var(--text-light);">Unable to load menu. Please try again.</p>';
+  });
+</script>
 </body>
 </html>
